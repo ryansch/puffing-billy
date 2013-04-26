@@ -41,6 +41,15 @@ module Billy
         driver.browser.ignore_ssl_errors
         driver
       end
+
+      Capybara.register_driver :webkit_debug_billy do |app|
+        driver = Capybara::Webkit::Driver.new(app)
+        driver.browser.set_proxy(:host => Billy.proxy.host,
+                                 :port => Billy.proxy.port)
+        driver.browser.ignore_ssl_errors
+        driver.enable_logging
+        driver
+      end
     end
 
     if defined?(Selenium::WebDriver)
